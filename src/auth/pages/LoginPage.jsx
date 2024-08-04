@@ -44,9 +44,10 @@ export const LoginPage = () => {
         "Las contraseñas no son iguales",
         "error"
       );
+      return;
     }
 
-    if (registerPassword.length < 6 ||  registerPassword2.length < 6) {
+    if (registerPassword.length < 6 || registerPassword2.length < 6) {
       Swal.fire(
         "Error en el registro",
         "Las contraseñas deben ser mayor a 6 caracteres",
