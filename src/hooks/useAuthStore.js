@@ -6,6 +6,7 @@ import {
   onLogin,
   onLogout,
 } from "../store/auth/authSlice";
+import { onLogOutCalendar } from "../store/calendar/calendarSlice";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
@@ -56,8 +57,9 @@ export const useAuthStore = () => {
     if (!token) return dispatch(onLogout());
 
     try {
-      const { data } = calendarAPI.get("auth/renew");
+      const { data } = await calendarAPI.get('auth/renew');
       localStorage.setItem("token", data.token);
+
       localStorage.setItem("token-init-day", new Date().getTime());
       dispatch(onLogin({ name: data.name, uid: data.uid }));
     } catch (error) {
@@ -68,6 +70,7 @@ export const useAuthStore = () => {
 
   const startLogout = () => {
     localStorage.clear();
+    dispatch(onLogOutCalendar());
     dispatch(onLogout());
   };
 

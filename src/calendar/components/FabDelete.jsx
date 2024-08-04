@@ -4,7 +4,7 @@ import "./Fab.styles.css";
 import Swal from "sweetalert2";
 
 export const FabDelete = () => {
-  const { startDeleteEvent, hasEventSelected } = useCalendarStore();
+  const { startDeleteEvent, hasEventSelected, activeEvent  } = useCalendarStore();
 
   const handleDelete = () => {
     const del = Swal.mixin({
@@ -26,7 +26,7 @@ export const FabDelete = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          startDeleteEvent();
+          startDeleteEvent( activeEvent.id );
           del.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
